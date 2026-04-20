@@ -631,8 +631,6 @@
     }
 
     .timer-back {
-      display: inline-block;
-      margin-bottom: 1rem;
       color: var(--fg-soft);
       cursor: pointer;
       font-size: 0.85rem;
@@ -640,6 +638,12 @@
 
     .timer-back:hover {
       color: var(--fg);
+    }
+
+    .timer-page-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
     }
 
     .nav-links {
@@ -686,6 +690,19 @@
     }
 
     .timeline-header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .stats-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .stats-header-right {
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -796,13 +813,6 @@
       margin-bottom: 0.5rem;
     }
 
-    .stats-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-    }
-
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -910,8 +920,10 @@
     </div>
 
     <div class="timer-view" id="timer-view">
-      <div class="timer-page">
+      <div class="timer-page-header">
         <div class="timer-back" id="timer-back">← back to todo</div>
+      </div>
+      <div class="timer-page">
 
         <div class="tabs">
           <button class="tab active" data-mode="work">work</button>
@@ -952,8 +964,8 @@
 
     <div class="stats-view" id="stats-view">
       <div class="stats-header">
+        <div class="timer-back" id="stats-back" onclick="showView('todo')">← back to todo</div>
         <h2 style="font-size: 1.1rem; color: var(--green);">stats</h2>
-        <span class="timer-back" id="stats-back">← back</span>
       </div>
 
       <div class="stats-grid">
