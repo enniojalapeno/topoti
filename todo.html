@@ -29,6 +29,90 @@
       --gray: #928374;
     }
 
+    [data-theme="dracula"] {
+      --bg: #282a36;
+      --bg-soft: #44475a;
+      --fg: #f8f8f2;
+      --fg-soft: #6272a4;
+      --red: #ff5555;
+      --green: #50fa7b;
+      --yellow: #f1fa8c;
+      --orange: #ffb86c;
+      --blue: #8be9fd;
+      --aqua: #69ff94;
+      --gray: #6272a4;
+    }
+
+    [data-theme="nord"] {
+      --bg: #2e3440;
+      --bg-soft: #3b4252;
+      --fg: #eceff4;
+      --fg-soft: #d8dee9;
+      --red: #bf616a;
+      --green: #a3be8c;
+      --yellow: #ebcb8b;
+      --orange: #d08770;
+      --blue: #81a1c1;
+      --aqua: #88c0d0;
+      --gray: #4c566a;
+    }
+
+    [data-theme="monokai"] {
+      --bg: #272822;
+      --bg-soft: #3e3d32;
+      --fg: #f8f8f2;
+      --fg-soft: #75715e;
+      --red: #f92672;
+      --green: #a6e22e;
+      --yellow: #f4bf75;
+      --orange: #fd971f;
+      --blue: #66d9ef;
+      --aqua: #a1efe4;
+      --gray: #75715e;
+    }
+
+    [data-theme="onedark"] {
+      --bg: #282c34;
+      --bg-soft: #21252b;
+      --fg: #abb2bf;
+      --fg-soft: #5c6370;
+      --red: #e06c75;
+      --green: #98c379;
+      --yellow: #e5c07b;
+      --orange: #d19a66;
+      --blue: #61afef;
+      --aqua: #56b6c2;
+      --gray: #5c6370;
+    }
+
+    [data-theme="solarized"] {
+      --bg: #002b36;
+      --bg-soft: #073642;
+      --fg: #839496;
+      --fg-soft: #657b83;
+      --red: #dc322f;
+      --green: #859900;
+      --yellow: #b58900;
+      --orange: #cb4b16;
+      --blue: #268bd2;
+      --aqua: #2aa198;
+      --gray: #586e75;
+    }
+
+    [data-theme="custom"] {
+      --bg: var(--custom-bg, #282828);
+      --bg-soft: var(--custom-bg-soft, #3c3836);
+      --fg: var(--custom-fg, #ebdbb2);
+      --fg-soft: var(--custom-fg-soft, #a89984);
+      --red: var(--custom-red, #cc241d);
+      --green: var(--custom-green, #b8bb26);
+      --yellow: var(--custom-yellow, #d79921);
+      --orange: var(--custom-orange, #d65d0e);
+      --blue: var(--custom-blue, #458588);
+      --aqua: var(--custom-aqua, #689d6a);
+      --gray: var(--custom-gray, #928374);
+    }
+
     body {
       font-family: 'Source Code Pro', monospace;
       background: var(--bg);
@@ -69,6 +153,58 @@
 
     .timer-link:hover {
       color: var(--fg);
+    }
+
+    .theme-select {
+      background: var(--bg);
+      color: var(--fg);
+      border: 1px solid var(--gray);
+      padding: 0.25rem 0.5rem;
+      font-family: inherit;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .theme-select:focus {
+      border-color: var(--blue);
+    }
+
+    .color-pickers {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .color-row label {
+      font-size: 0.75rem;
+      color: var(--fg-soft);
+      width: 60px;
+    }
+
+    .color-row input[type="color"] {
+      width: 40px;
+      height: 30px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .color-row input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    .color-row input[type="color"]::-webkit-color-swatch {
+      border: 1px solid var(--gray);
+      border-radius: 4px;
     }
 
     .tabs {
@@ -496,7 +632,7 @@
 
     .timer-back {
       display: inline-block;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       color: var(--fg-soft);
       cursor: pointer;
       font-size: 0.85rem;
@@ -546,6 +682,13 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 1rem;
+      gap: 0.5rem;
+    }
+
+    .timeline-header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .timeline-empty {
@@ -720,6 +863,15 @@
     <h1>
       <span id="app-title">todo</span>
       <div class="nav-links">
+        <select id="theme-select" class="theme-select">
+          <option value="gruvbox">gruvbox</option>
+          <option value="dracula">dracula</option>
+          <option value="nord">nord</option>
+          <option value="monokai">monokai</option>
+          <option value="onedark">onedark</option>
+          <option value="solarized">solarized</option>
+          <option value="custom">custom</option>
+        </select>
         <span class="timer-link" id="todo-link">todo</span>
         <span class="timer-link" id="timeline-link">timeline</span>
         <span class="timer-link" id="timer-link">timer</span>
@@ -759,7 +911,7 @@
 
     <div class="timer-view" id="timer-view">
       <div class="timer-page">
-        <span class="timer-back" id="timer-back">← back to todo</span>
+        <div class="timer-back" id="timer-back">← back to todo</div>
 
         <div class="tabs">
           <button class="tab active" data-mode="work">work</button>
@@ -778,7 +930,10 @@
 
     <div class="timeline-view" id="timeline-view">
       <div class="timeline-header">
-        <button class="reset-day-btn" id="reset-day-btn">reset day</button>
+        <div class="timer-back" id="timeline-back" onclick="showView('todo')">← back to todo</div>
+        <div class="timeline-header-right">
+          <button class="reset-day-btn" id="reset-day-btn">reset day</button>
+        </div>
       </div>
 
       <div class="timeline-input-group">
@@ -852,6 +1007,28 @@
     </div>
   </div>
 
+  <div class="modal" id="theme-modal">
+    <div class="modal-content">
+      <div class="modal-title">custom colors</div>
+      <div class="color-pickers">
+        <div class="color-row"><label>bg</label><input type="color" id="custom-bg" value="#282828"></div>
+        <div class="color-row"><label>bg-soft</label><input type="color" id="custom-bg-soft" value="#3c3836"></div>
+        <div class="color-row"><label>fg</label><input type="color" id="custom-fg" value="#ebdbb2"></div>
+        <div class="color-row"><label>fg-soft</label><input type="color" id="custom-fg-soft" value="#a89984"></div>
+        <div class="color-row"><label>red</label><input type="color" id="custom-red" value="#cc241d"></div>
+        <div class="color-row"><label>green</label><input type="color" id="custom-green" value="#b8bb26"></div>
+        <div class="color-row"><label>yellow</label><input type="color" id="custom-yellow" value="#d79921"></div>
+        <div class="color-row"><label>orange</label><input type="color" id="custom-orange" value="#d65d0e"></div>
+        <div class="color-row"><label>blue</label><input type="color" id="custom-blue" value="#458588"></div>
+        <div class="color-row"><label>aqua</label><input type="color" id="custom-aqua" value="#689d6a"></div>
+        <div class="color-row"><label>gray</label><input type="color" id="custom-gray" value="#928374"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn cancel" id="theme-modal-close">done</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     let CATEGORIES = ['work', 'personal', 'urgent'];
     let todos = [];
@@ -917,6 +1094,107 @@
     const nextHabit = document.getElementById('next-habit');
     const resetDayBtn = document.getElementById('reset-day-btn');
     const statsBack = document.getElementById('stats-back');
+
+    const themeSelect = document.getElementById('theme-select');
+    const themeModal = document.getElementById('theme-modal');
+    const themeModalClose = document.getElementById('theme-modal-close');
+    const colorInputs = document.querySelectorAll('.color-row input');
+    const root = document.documentElement;
+
+    const THEMES = ['gruvbox', 'dracula', 'nord', 'monokai', 'onedark', 'solarized', 'custom'];
+
+    function loadTheme() {
+      const saved = dbGet('theme');
+      if (saved && THEMES.includes(saved)) {
+        root.setAttribute('data-theme', saved);
+        themeSelect.value = saved;
+        if (saved === 'custom') loadCustomColors();
+      }
+    }
+
+    function saveTheme(theme) {
+      dbPut('theme', theme);
+      root.setAttribute('data-theme', theme);
+      if (theme === 'custom') {
+        root.setAttribute('data-theme', 'custom');
+        saveCustomColors();
+      }
+    }
+
+    function loadCustomColors() {
+      const saved = dbGet('customColors');
+      if (saved) {
+        try {
+          const colors = JSON.parse(saved);
+          Object.keys(colors).forEach(key => {
+            root.style.setProperty(`--${key}`, colors[key]);
+            const input = document.getElementById(key);
+            if (input) input.value = colors[key];
+          });
+        } catch (e) {}
+      }
+    }
+
+    function saveCustomColors() {
+      const colors = {};
+      colorInputs.forEach(input => {
+        colors[input.id] = input.value;
+      });
+      dbPut('customColors', JSON.stringify(colors));
+      Object.keys(colors).forEach(key => {
+        root.style.setProperty(`--${key}`, colors[key]);
+      });
+    }
+
+    themeSelect.addEventListener('change', () => {
+      const theme = themeSelect.value;
+      if (theme === 'custom') {
+        loadCustomColors();
+        root.setAttribute('data-theme', 'custom');
+        saveTheme('custom');
+      } else {
+        root.removeAttribute('data-theme');
+        saveTheme(theme);
+      }
+    });
+
+    colorInputs.forEach(input => {
+      input.addEventListener('input', () => {
+        root.style.setProperty(`--${input.id}`, input.value);
+      });
+      input.addEventListener('change', saveCustomColors);
+    });
+
+    themeModalClose.addEventListener('click', () => {
+      themeModal.classList.remove('show');
+      saveCustomColors();
+    });
+
+    themeModal.addEventListener('click', (e) => {
+      if (e.target === themeModal) {
+        themeModal.classList.remove('show');
+        saveCustomColors();
+      }
+    });
+
+    let wasCustom = false;
+    themeSelect.addEventListener('mousedown', () => {
+      wasCustom = themeSelect.value === 'custom';
+    });
+    themeSelect.addEventListener('change', () => {
+      const theme = themeSelect.value;
+      if (theme === 'custom') {
+        loadCustomColors();
+        root.setAttribute('data-theme', 'custom');
+        saveTheme('custom');
+        if (!wasCustom) {
+          setTimeout(() => themeModal.classList.add('show'), 50);
+        }
+      } else {
+        root.removeAttribute('data-theme');
+        saveTheme(theme);
+      }
+    });
 
     function initDB() {
       return Promise.resolve();
@@ -1596,6 +1874,7 @@
       renderTimeline();
       loadSessions();
       renderStats();
+      loadTheme();
     });
   </script>
 </body>
